@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nodejs-app
+  namespace: default  # Specify the namespace where your resources are deployed
+spec:
+  project: default  # Argo CD project name (if you have multiple projects)
+  source:
+    repoURL: 'https://github.com/25Saqlain/nodejsapp_test'
+    targetRevision: HEAD  
+    path: /app 
+  destination:
+    server: 'https://kubernetes.default.svc'  
+    namespace: default  #
+  syncPolicy:
+    automated:
+      prune: true  # Automatically remove resources not defined in Git
+      selfHeal: true  # Automatically reconcile differences to match Git state
